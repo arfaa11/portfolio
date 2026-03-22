@@ -27,7 +27,7 @@ const projects = [
     period: "Sept 2024 – Dec 2024",
   },
   {
-    title: "UAV Based Agronomic Sampling System",
+    title: "UAV-Based Agronomic Sampling System",
     description:
       "Proof-of-concept autonomous drone platform for automated soil sampling in precision agriculture. Integrated Holybro X650 + Pixhawk 6C + Raspberry Pi 4B via custom MAVLink telemetry scripts. 3D-modeled a robotic arm and sample-processing units through a full hardware dev lifecycle.",
     tags: ["Python", "C++", "MAVLink", "Raspberry Pi", "3D Modeling", "Bash"],
