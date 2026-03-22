@@ -52,7 +52,7 @@ export function Header() {
             href="#top"
             className="text-sm font-semibold tracking-[0.12em] text-zinc-300 transition-colors duration-200 hover:text-white sm:text-base"
           >
-            AM
+            Arfaa Mumtaz
           </a>
 
           {/* Nav links */}
