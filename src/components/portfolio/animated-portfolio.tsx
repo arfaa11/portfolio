@@ -520,14 +520,14 @@ function AboutContent() {
             <span className="font-medium text-white">professional cybersecurity audit</span> for a
             legal firm, and shipped a{" "}
             <span className="font-medium text-white">live full-stack web product</span> — all while
-            finishing my degree with a 3.52 GPA and placing in the{" "}
+            finishing my degree with a competitive GPA and placing in the{" "}
             <span className="font-medium text-purple-400">top 1–2%</span> nationally in the Cyber
             Skyline NCL competition.
           </p>
           <p>
             Currently seeking{" "}
-            <span className="font-medium text-purple-400">new grad opportunities</span> in frontend,
-            full-stack, or security-adjacent engineering.
+            <span className="font-medium text-purple-400">new grad opportunities</span> in data analysis,
+            frontend, or full-stack development.
           </p>
         </div>
 
@@ -621,7 +621,7 @@ function ContactContent() {
             <p className="text-sm font-semibold text-white">Available</p>
             <p className="mt-1 text-xs text-zinc-500">Open to new grad roles</p>
             <div className="mt-5 space-y-2 text-left">
-              {["Full-Stack Engineering", "Frontend / UI", "Security-Adjacent Eng."].map((r) => (
+              {["Full-Stack Engineering", "Frontend / UI", "Data Analysis"].map((r) => (
                 <div key={r} className="flex items-center gap-2 text-xs text-zinc-400">
                   <span className="h-1 w-1 rounded-full bg-purple-500" />
                   {r}
@@ -640,10 +640,10 @@ function ContactContent() {
 // ─────────────────────────────────────────────────────────────────────────────
 
 const pageSections = [
-  { id: "projects", eyebrow: "Projects",    title: "Selected Work",            content: <ProjectsContent /> },
-  { id: "skills",   eyebrow: "Skill Stack", title: "Technologies I Work With", content: <SkillsContent /> },
-  { id: "about",    eyebrow: "About Me",    title: "CS Graduate & Builder",    content: <AboutContent /> },
-  { id: "contact",  eyebrow: "Contact",     title: "Let's Connect",            content: <ContactContent /> },
+  { id: "projects", eyebrow: "Projects",    title: "Selected Work",         content: <ProjectsContent /> },
+  { id: "skills",   eyebrow: "Skill Stack", title: "Familiar Technologies", content: <SkillsContent /> },
+  { id: "about",    eyebrow: "About Me",    title: "CS Graduate & Builder", content: <AboutContent /> },
+  { id: "contact",  eyebrow: "Contact",     title: "Let's Connect",         content: <ContactContent /> },
 ];
 
 // ─────────────────────────────────────────────────────────────────────────────
