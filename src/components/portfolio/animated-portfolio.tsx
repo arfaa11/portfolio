@@ -1,36 +1,39 @@
 "use client";
 
-import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
 import { SectionCard } from "@/components/ui/section-card";
 
-// ─── DATA ───────────────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────────────────────
+// DATA
+// ─────────────────────────────────────────────────────────────────────────────
 
 const projects = [
   {
+    title: "AutoFinder",
+    description:
+      "A full-stack car listings platform serving the Alberta market. Features real-time search and filtering, user authentication, listing management, and automated email notifications. Deployed on Vercel with Cloudflare CDN for performance and reliability. Primarily built to serve as a landing page via targeted ad campaigns, significantly increasing conversion rate of prospects to buyers. ",
+    tags: ["Next.js", "Supabase", "Vercel", "Cloudflare", "Resend", "GitHub"],
+    link: "https://abautofinder.ca",
+    status: "Live",
+    period: "Feb 2026 – Mar 2026",
+  },
+  {
     title: "Agrilo – Agricultural IoT Framework",
     description:
-      "End-to-end IoT platform modernizing agronomic testing. Replaces slow, costly lab processes with real-time, AI-powered soil and water analysis via geolocated farming insights. Built with a 'Security by Design' approach — robust encryption and secure data handling throughout.",
-    tags: ["IoT", "Python", "AI/ML", "SQL", "Security by Design", "Figma"],
+      "End-to-end IoT platform modernizing agronomic testing for the agricultural community. Replaces slow lab processes with real-time, AI-powered soil and water analysis via geolocated farming insights. Built with a 'Security by Design' approach — encryption and secure data handling throughout.",
+    tags: ["C#", "IoT", "Python", "AI/ML", "SQL", "Security by Design", "Figma"],
     link: "#",
     status: "Live",
+    period: "Sept 2024 – Dec 2024",
   },
   {
     title: "UAV Agronomic Sampling System",
     description:
-      "Proof-of-concept autonomous drone platform for automated soil sampling in precision agriculture. Integrated Holybro X650 + Pixhawk 6C + Raspberry Pi 4B via custom MAVLink telemetry scripts. Designed & 3D-modeled a robotic arm and sample-processing units through a full hardware dev lifecycle.",
+      "Proof-of-concept autonomous drone platform for automated soil sampling in precision agriculture. Integrated Holybro X650 + Pixhawk 6C + Raspberry Pi 4B via custom MAVLink telemetry scripts. 3D-modeled a robotic arm and sample-processing units through a full hardware dev lifecycle.",
     tags: ["Python", "C++", "MAVLink", "Raspberry Pi", "3D Modeling", "Bash"],
     link: "#",
     status: "Live",
-  },
-  {
-    title: "Security Audit – Legal Services Firm",
-    description:
-      "Comprehensive cybersecurity audit for a legal organization: network architecture discovery, privileged access management, Google Workspace 2FA enforcement, BitLocker & Bitwarden deployment, Windows Defender hardening, and a documented incident response plan.",
-    tags: ["Cybersecurity", "Microsoft 365", "BitLocker", "Bitwarden", "OWASP"],
-    link: "#",
-    status: "Live",
+    period: "Jan 2025 – Jun 2025",
   },
 ];
 
@@ -45,11 +48,11 @@ const skillCategories = [
   },
   {
     label: "Databases",
-    skills: ["PostgreSQL", "MongoDB", "SQL", "Prisma", "Redis"],
+    skills: ["PostgreSQL", "Supabase", "MongoDB", "SQL", "Prisma"],
   },
   {
     label: "Tools & DevOps",
-    skills: ["Git", "Docker", "Bash", "GitHub Actions", "Vercel", "AWS S3"],
+    skills: ["Git", "GitHub Actions", "Docker", "Vercel", "Cloudflare", "Resend"],
   },
   {
     label: "Data & Analysis",
@@ -61,356 +64,238 @@ const skillCategories = [
   },
 ];
 
-// ─── TIMELINE DATA ───────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────────────────────
+// TIMELINE DATA  (sorted chronologically)
+// ─────────────────────────────────────────────────────────────────────────────
+
+type EventType = "education" | "work" | "project" | "achievement";
 
 type TimelineEvent = {
   id: string;
-  date: string;
-  displayDate: string;
-  endDate: string | null;
-  displayEndDate: string | null;
+  type: EventType;
+  period: string;
   label: string;
   sublabel: string;
-  type: "education" | "achievement" | "project" | "work";
-  color: "purple" | "emerald" | "blue" | "amber";
-  details: string[];
+  bullets: string[];
 };
 
 const timelineEvents: TimelineEvent[] = [
   {
     id: "edu",
-    date: "2021-09",
-    displayDate: "Sept 2021",
-    endDate: "2025-06",
-    displayEndDate: "June 2025",
+    type: "education",
+    period: "Sept 2021 – June 2025",
     label: "B.Sc. Computer Science",
     sublabel: "MacEwan University",
-    type: "education",
-    color: "purple",
-    details: [
-      "Major: Systems & Information Security",
-      "Minor: Accounting",
+    bullets: [
+      "Major: Systems & Information Security · Minor: Accounting",
       "CGPA 3.52 / 4.00 for final 30 credits",
       "Presented research at Student Research Day",
     ],
   },
   {
-    id: "nccdc",
-    date: "2023-10",
-    displayDate: "Oct 2023",
-    endDate: null,
-    displayEndDate: null,
-    label: "National Cyber League",
-    sublabel: "Cyber Skyline Competition",
+    id: "agrilo",
+    type: "project",
+    period: "Sept 2024 – Dec 2024",
+    label: "Agrilo — Agricultural IoT Framework",
+    sublabel: "Funded Capstone Project · MacEwan University",
+    bullets: [
+      "End-to-end IoT platform for real-time soil & water analysis",
+      "AI-powered geolocated farming insights",
+      "Built with Security by Design — C# · Python · SQL · Figma",
+    ],
+  },
+  {
+    id: "audit",
+    type: "work",
+    period: "Sept 2024 – Jan 2025",
+    label: "Security Systems Analyst Intern",
+    sublabel: "Alternative Legal Services Firm · Representing MacEwan University",
+    bullets: [
+      "Conducted full organizational cybersecurity audit",
+      "Deployed BitLocker + Bitwarden, enforced 2FA & privileged access",
+      "Documented incident response plan & staff security guides",
+    ],
+  },
+  {
+    id: "ncl",
     type: "achievement",
-    color: "emerald",
-    details: [
-      "Represented MacEwan University",
-      "Individual: 199th / 8,484 — top 2%",
+    period: "Nov 2024",
+    label: "National Cyber League",
+    sublabel: "Cyber Skyline · Representing MacEwan University",
+    bullets: [
+      "Individual: 199th / 8,484 competitors — top 2%",
       "Team: 72nd / 4,893 teams — top 1%",
     ],
   },
   {
-    id: "agrilo",
-    date: "2024-01",
-    displayDate: "Jan 2024",
-    endDate: null,
-    displayEndDate: null,
-    label: "Agrilo — IoT Framework",
-    sublabel: "Capstone Project",
-    type: "project",
-    color: "blue",
-    details: [
-      "End-to-end IoT platform for real-time soil & water analysis",
-      "AI-powered, geolocated farming insights",
-      "Security by Design architecture",
-      "Python · SQL · Figma · ML",
-    ],
-  },
-  {
-    id: "security",
-    date: "2024-09",
-    displayDate: "Sept 2024",
-    endDate: "2025-01",
-    displayEndDate: "Jan 2025",
-    label: "Security Systems Analyst",
-    sublabel: "Alternative Legal Services Firm",
-    type: "work",
-    color: "amber",
-    details: [
-      "Full organizational cybersecurity audit",
-      "Privileged access management & 2FA rollout",
-      "BitLocker + Bitwarden endpoint security",
-      "Documented incident response plan",
-    ],
-  },
-  {
     id: "uav",
-    date: "2025-03",
-    displayDate: "Mar 2025",
-    endDate: "2025-06",
-    displayEndDate: "June 2025",
-    label: "UAV Sampling System",
-    sublabel: "Research Assistant · MacEwan",
     type: "project",
-    color: "blue",
-    details: [
-      "Lead developer for autonomous drone platform",
-      "Pixhawk 6C + Raspberry Pi 4B via MAVLink",
-      "3D-modeled robotic arm & sample units",
-      "Python · C++ · Bash",
+    period: "Jan 2025 – June 2025",
+    label: "UAV Agronomic Sampling System",
+    sublabel: "Capstone Project · USRI Funded Research · MacEwan University ",
+    bullets: [
+      "Lead developer — autonomous drone soil-sampling platform",
+      "Pixhawk 6C + Raspberry Pi 4B integrated via MAVLink telemetry",
+      "3D-modeled robotic arm & sample units · Python · C++ · Bash",
+    ],
+  },
+  {
+    id: "autofinder",
+    type: "project",
+    period: "Feb 2026 – Mar 2026",
+    label: "AB AutoFinder",
+    sublabel: "Personal Project · abautofinder.ca",
+    bullets: [
+      "Full-stack car listings platform for the Alberta market",
+      "Next.js · Supabase · Vercel · Cloudflare · Resend",
+      "Animated multi-step funnel with client-side form orchestration, edge-runtime API routes, Supabase lead persistence & transactional email delivery via Resend",
     ],
   },
 ];
 
-// ─── COLOR MAP ───────────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────────────────────
+// TYPE → STYLE MAP
+// ─────────────────────────────────────────────────────────────────────────────
 
-const colorMap: Record<
-  string,
-  { dot: string; border: string; badge: string; text: string; glow: string }
+const typeStyles: Record<
+  EventType,
+  { bar: string; dot: string; badge: string; badgeText: string; label: string }
 > = {
-  purple: {
-    dot: "bg-purple-500",
-    border: "border-purple-500/50",
-    badge: "bg-purple-500/10 text-purple-300 border-purple-500/20",
-    text: "text-purple-300",
-    glow: "shadow-[0_0_14px_rgba(168,85,247,0.7)]",
+  education: {
+    bar: "bg-purple-500",
+    dot: "bg-purple-500 shadow-[0_0_10px_rgba(168,85,247,0.7)]",
+    badge: "bg-purple-500/10 border-purple-500/20",
+    badgeText: "text-purple-300",
+    label: "Education",
   },
-  emerald: {
-    dot: "bg-emerald-500",
-    border: "border-emerald-500/50",
-    badge: "bg-emerald-500/10 text-emerald-300 border-emerald-500/20",
-    text: "text-emerald-300",
-    glow: "shadow-[0_0_14px_rgba(52,211,153,0.7)]",
+  work: {
+    bar: "bg-amber-500",
+    dot: "bg-amber-500 shadow-[0_0_10px_rgba(251,191,36,0.7)]",
+    badge: "bg-amber-500/10 border-amber-500/20",
+    badgeText: "text-amber-300",
+    label: "Work",
   },
-  blue: {
-    dot: "bg-blue-500",
-    border: "border-blue-500/50",
-    badge: "bg-blue-500/10 text-blue-300 border-blue-500/20",
-    text: "text-blue-300",
-    glow: "shadow-[0_0_14px_rgba(96,165,250,0.7)]",
+  project: {
+    bar: "bg-blue-500",
+    dot: "bg-blue-500 shadow-[0_0_10px_rgba(96,165,250,0.7)]",
+    badge: "bg-blue-500/10 border-blue-500/20",
+    badgeText: "text-blue-300",
+    label: "Project",
   },
-  amber: {
-    dot: "bg-amber-500",
-    border: "border-amber-500/50",
-    badge: "bg-amber-500/10 text-amber-300 border-amber-500/20",
-    text: "text-amber-300",
-    glow: "shadow-[0_0_14px_rgba(251,191,36,0.7)]",
+  achievement: {
+    bar: "bg-emerald-500",
+    dot: "bg-emerald-500 shadow-[0_0_10px_rgba(52,211,153,0.7)]",
+    badge: "bg-emerald-500/10 border-emerald-500/20",
+    badgeText: "text-emerald-300",
+    label: "Achievement",
   },
 };
 
-const typeLabel: Record<string, string> = {
-  education: "Education",
-  achievement: "Achievement",
-  project: "Project",
-  work: "Work",
-};
+// ─────────────────────────────────────────────────────────────────────────────
+// HOOKS
+// ─────────────────────────────────────────────────────────────────────────────
 
-// ─── DATE UTILS ──────────────────────────────────────────────────────────────
-
-function dateToMonths(dateStr: string): number {
-  const [y, m] = dateStr.split("-").map(Number);
-  return y * 12 + m;
-}
-
-// ─── HOOKS ───────────────────────────────────────────────────────────────────
-
-function useReveal() {
+/** Fires .visible on the element when it enters the viewport */
+function useReveal(threshold = 0.1) {
   const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) el.classList.add("visible");
-      },
-      { threshold: 0.08 }
+    const obs = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) el.classList.add("visible"); },
+      { threshold }
     );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, [threshold]);
   return ref;
 }
 
-function useTypewriter(words: string[], speed = 80, pause = 1800) {
+/** Typewriter cycling through an array of strings */
+function useTypewriter(words: string[], speed = 78, pause = 1900) {
   const [display, setDisplay] = useState("");
-  const [wordIndex, setWordIndex] = useState(0);
-  const [charIndex, setCharIndex] = useState(0);
-  const [deleting, setDeleting] = useState(false);
+  const [wi, setWi] = useState(0);
+  const [ci, setCi] = useState(0);
+  const [del, setDel] = useState(false);
 
   useEffect(() => {
-    const current = words[wordIndex % words.length];
-    const timeout = setTimeout(
-      () => {
-        if (!deleting) {
-          setDisplay(current.slice(0, charIndex + 1));
-          if (charIndex + 1 === current.length) {
-            setTimeout(() => setDeleting(true), pause);
-          } else {
-            setCharIndex((c) => c + 1);
-          }
-        } else {
-          setDisplay(current.slice(0, charIndex - 1));
-          if (charIndex - 1 === 0) {
-            setDeleting(false);
-            setCharIndex(0);
-            setWordIndex((w) => w + 1);
-          } else {
-            setCharIndex((c) => c - 1);
-          }
-        }
-      },
-      deleting ? speed / 2 : speed
-    );
-    return () => clearTimeout(timeout);
-  }, [charIndex, deleting, wordIndex, words, speed, pause]);
+    const word = words[wi % words.length];
+    const t = setTimeout(() => {
+      if (!del) {
+        setDisplay(word.slice(0, ci + 1));
+        if (ci + 1 === word.length) setTimeout(() => setDel(true), pause);
+        else setCi((c) => c + 1);
+      } else {
+        setDisplay(word.slice(0, ci - 1));
+        if (ci - 1 === 0) { setDel(false); setCi(0); setWi((w) => w + 1); }
+        else setCi((c) => c - 1);
+      }
+    }, del ? speed / 2 : speed);
+    return () => clearTimeout(t);
+  }, [ci, del, wi, words, speed, pause]);
 
   return display;
 }
 
-// ─── HORIZONTAL TIMELINE ─────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────────────────────
+// VERTICAL TIMELINE COMPONENT
+// ─────────────────────────────────────────────────────────────────────────────
 
-function HorizontalTimeline() {
-  const [hovered, setHovered] = useState<string | null>(null);
-
-  const minMonth = dateToMonths("2021-09");
-  const maxMonth = dateToMonths("2025-06");
-  const totalSpan = maxMonth - minMonth;
-
-  const pct = (dateStr: string) =>
-    ((dateToMonths(dateStr) - minMonth) / totalSpan) * 100;
-
-  const years = [2022, 2023, 2024, 2025];
+function VerticalTimeline() {
+  const ref = useReveal(0.05);
 
   return (
-    <div className="mt-14 w-full select-none">
-      {/* Year ruler */}
-      <div className="relative mb-3 h-5">
-        {years.map((yr) => {
-          const pos = pct(`${yr}-01`);
-          if (pos < 0 || pos > 100) return null;
+    <div ref={ref} className="reveal-stagger relative mt-4 w-full">
+      {/* Vertical spine */}
+      <div className="absolute left-[7px] top-2 bottom-2 w-[2px] rounded-full bg-gradient-to-b from-purple-600/60 via-zinc-700/40 to-zinc-800/20" />
+
+      <div className="space-y-0">
+        {timelineEvents.map((event, i) => {
+          const s = typeStyles[event.type];
           return (
-            <span
-              key={yr}
-              className="absolute -translate-x-1/2 text-[11px] font-mono tracking-widest text-zinc-600"
-              style={{ left: `${pos}%` }}
-            >
-              {yr}
-            </span>
-          );
-        })}
-      </div>
+            <div key={event.id} className="relative flex gap-6 pb-10 last:pb-0">
+              {/* Dot on the spine */}
+              <div className="relative z-10 mt-1 flex-shrink-0">
+                <div className={`h-4 w-4 rounded-full border-2 border-black ${s.dot}`} />
+              </div>
 
-      {/* Track */}
-      <div className="relative h-[2px] w-full rounded-full bg-zinc-800">
-        {/* Gradient fill */}
-        <div className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-700/30 via-purple-500/20 to-purple-400/10" />
-
-        {/* Duration spans */}
-        {timelineEvents
-          .filter((e) => e.endDate)
-          .map((e) => {
-            const left = pct(e.date);
-            const right = pct(e.endDate!);
-            const c = colorMap[e.color];
-            return (
-              <div
-                key={`span-${e.id}`}
-                className={`absolute top-1/2 -translate-y-1/2 h-[3px] rounded-full opacity-50 ${c.dot}`}
-                style={{ left: `${left}%`, width: `${right - left}%` }}
-              />
-            );
-          })}
-
-        {/* Nodes */}
-        {timelineEvents.map((event) => {
-          const left = pct(event.date);
-          const c = colorMap[event.color];
-          const isHovered = hovered === event.id;
-
-          // Clamp tooltip so it doesn't overflow edges
-          const tooltipStyle: React.CSSProperties =
-            left > 72
-              ? { right: 0, left: "auto", transform: "none" }
-              : left < 15
-              ? { left: 0, transform: "none" }
-              : { left: "50%", transform: "translateX(-50%)" };
-
-          return (
-            <div
-              key={event.id}
-              className="absolute top-1/2 -translate-x-1/2 -translate-y-1/2"
-              style={{ left: `${left}%` }}
-              onMouseEnter={() => setHovered(event.id)}
-              onMouseLeave={() => setHovered(null)}
-            >
-              {/* Pulse ring */}
-              <div
-                className={`absolute rounded-full transition-all duration-300 ${c.dot} ${
-                  isHovered ? "opacity-20" : "opacity-0"
-                }`}
-                style={{
-                  width: 28,
-                  height: 28,
-                  top: "50%",
-                  left: "50%",
-                  transform: "translate(-50%, -50%)",
-                }}
-              />
-
-              {/* Dot */}
-              <div
-                className={`relative z-10 h-3 w-3 cursor-pointer rounded-full border-2 border-black transition-all duration-200 ${c.dot} ${
-                  isHovered ? `scale-150 ${c.glow}` : "scale-100"
-                }`}
-              />
-
-              {/* Tooltip */}
-              <div
-                className={`absolute bottom-7 z-50 w-60 rounded-2xl border bg-zinc-950 p-4 shadow-2xl transition-all duration-200 ${c.border} ${
-                  isHovered
-                    ? "opacity-100 translate-y-0 pointer-events-auto"
-                    : "opacity-0 translate-y-2 pointer-events-none"
-                }`}
-                style={tooltipStyle}
-              >
-                <span
-                  className={`mb-2 inline-block rounded-full border px-2 py-0.5 text-[10px] font-semibold uppercase tracking-widest ${c.badge}`}
-                >
-                  {typeLabel[event.type]}
-                </span>
-
-                <p className="text-sm font-semibold leading-snug text-white">
-                  {event.label}
-                </p>
-                <p className={`mt-0.5 text-xs font-medium ${c.text}`}>
-                  {event.sublabel}
-                </p>
-                <p className="mt-1 text-xs text-zinc-500">
-                  {event.displayDate}
-                  {event.displayEndDate ? ` → ${event.displayEndDate}` : ""}
-                </p>
-
-                <ul className="mt-3 space-y-1.5">
-                  {event.details.map((d, i) => (
-                    <li
-                      key={i}
-                      className="flex items-start gap-1.5 text-xs leading-relaxed text-zinc-400"
+              {/* Card */}
+              <div className="group flex-1 rounded-2xl border border-zinc-800/80 bg-zinc-950/50 px-5 py-4 transition-all duration-300 hover:border-zinc-700 hover:bg-zinc-900/60">
+                {/* Header row */}
+                <div className="flex flex-wrap items-start justify-between gap-2">
+                  <div>
+                    {/* Type badge */}
+                    <span
+                      className={`mb-2 inline-block rounded-full border px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-widest ${s.badge} ${s.badgeText}`}
                     >
-                      <span
-                        className={`mt-[5px] h-1 w-1 flex-shrink-0 rounded-full ${c.dot}`}
-                      />
-                      {d}
+                      {s.label}
+                    </span>
+                    <h4 className="text-base font-semibold leading-snug text-white">
+                      {event.label}
+                    </h4>
+                    <p className={`mt-0.5 text-sm font-medium ${s.badgeText}`}>
+                      {event.sublabel}
+                    </p>
+                  </div>
+
+                  {/* Period pill */}
+                  <span className="mt-1 flex-shrink-0 rounded-full border border-zinc-700/60 bg-zinc-900 px-3 py-1 font-mono text-[11px] text-zinc-500">
+                    {event.period}
+                  </span>
+                </div>
+
+                {/* Accent bar */}
+                <div className={`mt-3 h-[2px] w-10 rounded-full ${s.bar} opacity-60 transition-all duration-300 group-hover:w-20 group-hover:opacity-100`} />
+
+                {/* Bullets */}
+                <ul className="mt-3 space-y-1.5">
+                  {event.bullets.map((b, j) => (
+                    <li key={j} className="flex items-start gap-2 text-sm leading-relaxed text-zinc-400">
+                      <span className={`mt-[7px] h-1 w-1 flex-shrink-0 rounded-full ${s.bar}`} />
+                      {b}
                     </li>
                   ))}
                 </ul>
-              </div>
-
-              {/* Date label below */}
-              <div className="absolute top-5 left-1/2 -translate-x-1/2 whitespace-nowrap">
-                <p className="text-[9px] font-mono tracking-wide text-zinc-600">
-                  {event.displayDate}
-                </p>
               </div>
             </div>
           );
@@ -418,62 +303,53 @@ function HorizontalTimeline() {
       </div>
 
       {/* Legend */}
-      <div className="mt-10 flex flex-wrap items-center gap-5">
-        {(["education", "work", "project", "achievement"] as const).map((t) => {
-          const sample = timelineEvents.find((e) => e.type === t)!;
-          const c = colorMap[sample.color];
+      <div className="mt-8 flex flex-wrap gap-5 pl-10">
+        {(["education", "work", "project", "achievement"] as EventType[]).map((t) => {
+          const s = typeStyles[t];
           return (
             <div key={t} className="flex items-center gap-2">
-              <span className={`h-2 w-2 rounded-full ${c.dot}`} />
-              <span className="text-xs text-zinc-500">{typeLabel[t]}</span>
+              <span className={`h-2 w-2 rounded-full ${s.bar}`} />
+              <span className="text-xs text-zinc-600">{s.label}</span>
             </div>
           );
         })}
-        <span className="text-xs italic text-zinc-700">— hover nodes to explore</span>
       </div>
     </div>
   );
 }
 
-// ─── SECTION COMPONENTS ──────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────────────────────
+// SECTION CONTENT COMPONENTS
+// ─────────────────────────────────────────────────────────────────────────────
 
-function ProjectsSection() {
+function ProjectsContent() {
   const ref = useReveal();
   return (
-    <div
-      ref={ref}
-      className="reveal-stagger mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-3"
-    >
-      {projects.map((project) => (
+    <div ref={ref} className="reveal-stagger mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+      {projects.map((p) => (
         <a
-          key={project.title}
-          href={project.link}
+          key={p.title}
+          href={p.link}
+          target={p.link.startsWith("http") ? "_blank" : undefined}
+          rel="noopener noreferrer"
           className="group relative flex flex-col rounded-2xl border border-zinc-800 bg-zinc-950/60 p-6 transition-all duration-300 hover:border-purple-500/40 hover:bg-zinc-900/60 hover:-translate-y-1 hover:shadow-[0_8px_40px_rgba(168,85,247,0.12)]"
         >
-          <span
-            className={`mb-4 self-start rounded-full px-3 py-1 text-xs font-medium tracking-wide ${
-              project.status === "Live"
-                ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20"
-                : "bg-amber-500/10 text-amber-400 border border-amber-500/20"
-            }`}
-          >
-            {project.status === "Live" ? "● Live" : "◐ In Progress"}
-          </span>
+          <div className="mb-3 flex items-center justify-between">
+            <span className="rounded-full border border-emerald-500/20 bg-emerald-500/10 px-3 py-1 text-xs font-medium text-emerald-400">
+              ● {p.status}
+            </span>
+            <span className="font-mono text-[11px] text-zinc-600">{p.period}</span>
+          </div>
 
           <h4 className="text-xl font-semibold tracking-tight text-white transition-colors duration-200 group-hover:text-purple-300">
-            {project.title}
+            {p.title}
           </h4>
 
-          <p className="mt-3 flex-1 text-sm leading-6 text-zinc-400">
-            {project.description}
-          </p>
+          <p className="mt-3 flex-1 text-sm leading-6 text-zinc-400">{p.description}</p>
 
           <div className="mt-5 flex flex-wrap gap-2">
-            {project.tags.map((tag) => (
-              <span
-                key={tag}
-                className="rounded-full bg-zinc-800/80 px-3 py-1 text-xs font-medium text-zinc-300"
-              >
+            {p.tags.map((tag) => (
+              <span key={tag} className="rounded-full bg-zinc-800/80 px-3 py-1 text-xs font-medium text-zinc-300">
                 {tag}
               </span>
             ))}
@@ -488,18 +364,12 @@ function ProjectsSection() {
   );
 }
 
-function SkillsSection() {
+function SkillsContent() {
   const ref = useReveal();
   return (
-    <div
-      ref={ref}
-      className="reveal-stagger mt-12 grid gap-6 sm:grid-cols-2 xl:grid-cols-3"
-    >
+    <div ref={ref} className="reveal-stagger mt-10 grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
       {skillCategories.map((cat) => (
-        <div
-          key={cat.label}
-          className="rounded-2xl border border-zinc-800 bg-zinc-950/60 p-6"
-        >
+        <div key={cat.label} className="rounded-2xl border border-zinc-800 bg-zinc-950/60 p-6">
           <p className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-purple-400">
             {cat.label}
           </p>
@@ -519,87 +389,73 @@ function SkillsSection() {
   );
 }
 
-function AboutSection() {
-  const ref = useReveal();
+function AboutContent() {
+  const bioRef = useReveal();
+
   return (
-    <div ref={ref} className="reveal mt-10">
-      {/* Bio + quick facts */}
-      <div className="grid gap-10 lg:grid-cols-[1fr_auto]">
-        <div className="max-w-2xl space-y-5 text-lg leading-8 text-zinc-400 lg:text-xl lg:leading-9">
+    <div className="mt-6">
+      {/* ── Short bio + quick facts ── */}
+      <div ref={bioRef} className="reveal mb-12 grid gap-10 lg:grid-cols-[1fr_260px]">
+        <div className="space-y-5 text-lg leading-8 text-zinc-400 lg:text-xl lg:leading-9">
           <p>
             I&apos;m a{" "}
             <span className="font-medium text-white">
               Computer Science graduate from MacEwan University
             </span>{" "}
             (B.Sc., Systems &amp; Information Security, Minor in Accounting —
-            June 2025), with hands-on experience spanning full-stack
-            development, autonomous robotics, and real-world cybersecurity.
+            June 2025), with hands-on experience across full-stack development,
+            autonomous robotics, and real-world cybersecurity.
           </p>
           <p>
-            I&apos;ve led the development of an{" "}
-            <span className="font-medium text-white">
-              AI-powered agricultural IoT platform
-            </span>
-            , engineered an{" "}
-            <span className="font-medium text-white">
-              autonomous drone system
-            </span>{" "}
-            bridging MAVLink telemetry with precision agriculture, and conducted
-            a{" "}
-            <span className="font-medium text-white">
-              professional cybersecurity audit
-            </span>{" "}
-            for a legal organization — all while maintaining a 3.52 GPA and
-            placing in the{" "}
-            <span className="font-medium text-purple-400">top 1–2%</span>{" "}
-            nationally in the Cyber Skyline NCL competition.
+            I&apos;ve led an{" "}
+            <span className="font-medium text-white">AI-powered agricultural IoT platform</span>,
+            engineered an{" "}
+            <span className="font-medium text-white">autonomous drone sampling system</span>,
+            conducted a{" "}
+            <span className="font-medium text-white">professional cybersecurity audit</span>{" "}
+            for a legal firm, and shipped a{" "}
+            <span className="font-medium text-white">live full-stack web product</span>{" "}
+            — all while finishing my degree with a 3.52 GPA and placing in the{" "}
+            <span className="font-medium text-purple-400">top 1–2%</span> nationally
+            in the Cyber Skyline NCL competition.
           </p>
           <p>
             Currently seeking{" "}
-            <span className="font-medium text-purple-400">
-              new grad opportunities
-            </span>{" "}
-            in frontend, full-stack, or security-adjacent engineering roles.
+            <span className="font-medium text-purple-400">new grad opportunities</span>{" "}
+            in frontend, full-stack, or security-adjacent engineering.
           </p>
         </div>
 
-        {/* Quick facts */}
-        <div className="flex flex-col gap-3 lg:min-w-[230px]">
+        {/* Quick facts sidebar */}
+        <div className="flex flex-col gap-3">
           {[
-            { label: "Degree", value: "B.Sc. Computer Science" },
-            { label: "Focus", value: "Systems & Info Security" },
-            { label: "Minor", value: "Accounting" },
+            { label: "Degree",          value: "B.Sc. Computer Science" },
+            { label: "Focus",           value: "Systems & Info Security" },
+            { label: "Minor",           value: "Accounting" },
             { label: "GPA (final 30cr)", value: "3.52 / 4.00" },
-            { label: "Location", value: "Edmonton, AB" },
-            { label: "Status", value: "Open to Opportunities" },
-          ].map((fact) => (
-            <div
-              key={fact.label}
-              className="rounded-xl border border-zinc-800 bg-zinc-950/60 px-5 py-3"
-            >
-              <p className="text-xs uppercase tracking-widest text-zinc-500">
-                {fact.label}
-              </p>
-              <p className="mt-0.5 text-sm font-medium text-zinc-200">
-                {fact.value}
-              </p>
+            { label: "Location",        value: "Edmonton, AB" },
+            { label: "Status",          value: "Open to Opportunities" },
+          ].map((f) => (
+            <div key={f.label} className="rounded-xl border border-zinc-800 bg-zinc-950/60 px-5 py-3">
+              <p className="text-xs uppercase tracking-widest text-zinc-500">{f.label}</p>
+              <p className="mt-0.5 text-sm font-medium text-zinc-200">{f.value}</p>
             </div>
           ))}
         </div>
       </div>
 
-      {/* Interactive timeline */}
-      <div className="mt-14">
-        <p className="text-xs uppercase tracking-[0.25em] text-zinc-500">
+      {/* ── Timeline ── */}
+      <div>
+        <p className="mb-6 text-xs uppercase tracking-[0.25em] text-zinc-500">
           Career &amp; Education Timeline
         </p>
-        <HorizontalTimeline />
+        <VerticalTimeline />
       </div>
     </div>
   );
 }
 
-function ContactSection() {
+function ContactContent() {
   const ref = useReveal();
   return (
     <div ref={ref} className="reveal mt-10 max-w-2xl space-y-8">
@@ -613,25 +469,23 @@ function ContactSection() {
         href="mailto:arfaamumtaz@hotmail.com"
         className="inline-flex items-center gap-3 rounded-full border border-purple-400/20 bg-purple-500 px-8 py-4 text-base font-medium text-white shadow-[0_0_30px_rgba(168,85,247,0.2)] transition-all duration-200 hover:bg-purple-400 hover:shadow-[0_0_40px_rgba(168,85,247,0.35)] active:scale-[0.98]"
       >
-        <span>Say Hello</span>
-        <span className="text-purple-200">→</span>
+        Say Hello <span className="text-purple-200">→</span>
       </a>
 
       <div className="flex flex-wrap gap-4 pt-2">
         {[
-          { label: "GitHub", href: "https://github.com/" },
+          { label: "GitHub",   href: "https://github.com/arfaa11" },
           { label: "LinkedIn", href: "https://linkedin.com/in/arfaamumtaz/" },
-          { label: "Resume", href: "/ARFAA_RESUME_03_26.pdf" },
-        ].map((link) => (
+          { label: "Resume",   href: "/resume.pdf" },
+        ].map((l) => (
           <a
-            key={link.label}
-            href={link.href}
+            key={l.label}
+            href={l.href}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 rounded-full border border-zinc-700 bg-zinc-950 px-6 py-3 text-sm font-medium text-zinc-300 transition-all duration-200 hover:border-zinc-500 hover:bg-zinc-900 hover:text-white"
           >
-            {link.label}
-            <span className="text-zinc-500">↗</span>
+            {l.label} <span className="text-zinc-500">↗</span>
           </a>
         ))}
       </div>
@@ -641,60 +495,86 @@ function ContactSection() {
   );
 }
 
-// ─── SLIDING SECTION WRAPPER ──────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────────────────────
+// PAGE SECTIONS CONFIG
+// ─────────────────────────────────────────────────────────────────────────────
 
-const slidingSections = [
+const pageSections = [
+  {
+    id: "projects",
+    eyebrow: "Projects",
+    title: "Selected Work",
+    content: <ProjectsContent />,
+  },
   {
     id: "skills",
     eyebrow: "Skill Stack",
     title: "Technologies I Work With",
-    content: <SkillsSection />,
+    content: <SkillsContent />,
   },
   {
     id: "about",
     eyebrow: "About Me",
     title: "CS Graduate & Builder",
-    content: <AboutSection />,
+    content: <AboutContent />,
   },
   {
     id: "contact",
     eyebrow: "Contact",
     title: "Let's Connect",
-    content: <ContactSection />,
+    content: <ContactContent />,
   },
 ];
 
-function SlidingSection({
+// ─────────────────────────────────────────────────────────────────────────────
+// FADE + SLIDE-UP SECTION  (replaces stack-card)
+// ─────────────────────────────────────────────────────────────────────────────
+
+function AnimatedSection({
   section,
   index,
-  total,
 }: {
-  section: (typeof slidingSections)[number];
+  section: (typeof pageSections)[number];
   index: number;
-  total: number;
 }) {
-  const { scrollYProgress } = useScroll({
-    offset: ["start start", "end end"],
-  });
+  const ref = useRef<HTMLDivElement>(null);
 
-  const start = (index + 1) / (total + 1);
-  const end = (index + 2) / (total + 1);
-  const y = useTransform(scrollYProgress, [start, end], ["100%", "0%"]);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          el.style.opacity = "1";
+          el.style.transform = "translateY(0)";
+        }
+      },
+      { threshold: 0.07 }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
 
   return (
-    <motion.div
+    <div
+      ref={ref}
       id={section.id}
-      style={{ y, zIndex: index + 2 }}
-      className="pointer-events-auto absolute inset-0"
+      style={{
+        opacity: 0,
+        transform: "translateY(52px)",
+        transition: `opacity 0.75s cubic-bezier(0.22,1,0.36,1) ${index * 0.04}s, transform 0.75s cubic-bezier(0.22,1,0.36,1) ${index * 0.04}s`,
+      }}
     >
       <SectionCard eyebrow={section.eyebrow} title={section.title}>
         {section.content}
       </SectionCard>
-    </motion.div>
+    </div>
   );
 }
 
-// ─── HERO ─────────────────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────────────────────
+// HERO
+// ─────────────────────────────────────────────────────────────────────────────
 
 function HeroSection() {
   const roles = [
@@ -707,111 +587,120 @@ function HeroSection() {
   const typed = useTypewriter(roles);
 
   return (
-    <section className="relative flex h-screen w-full items-center overflow-hidden bg-black">
+    <section
+      id="top"
+      className="relative flex min-h-screen w-full items-center overflow-hidden bg-black"
+    >
+      {/* Ambient glows */}
       <div className="pointer-events-none absolute -top-40 left-1/4 h-[600px] w-[600px] rounded-full bg-purple-600/10 blur-[120px]" />
-      <div className="pointer-events-none absolute bottom-0 right-1/4 h-[400px] w-[400px] rounded-full bg-purple-500/[0.08] blur-[100px]" />
+      <div className="pointer-events-none absolute bottom-0 right-1/4 h-[400px] w-[400px] rounded-full bg-purple-500/[0.07] blur-[100px]" />
+      {/* Top fade */}
       <div className="pointer-events-none absolute inset-x-0 top-0 z-10 h-32 bg-gradient-to-b from-black via-black/90 to-transparent" />
 
-      <div className="mx-auto grid h-full w-full max-w-[1900px] items-center gap-10 px-4 pt-28 sm:px-6 lg:grid-cols-[1.02fr_0.98fr] lg:px-8 xl:px-10">
-        <div className="max-w-5xl">
-          <div
-            className="mb-10 flex animate-fade-up items-center gap-3"
-            style={{ animationDelay: "0.1s" }}
-          >
-            <span className="h-3 w-3 animate-pulse-glow rounded-full bg-purple-500" />
-            <p className="font-mono text-sm uppercase tracking-[0.3em] text-zinc-500 sm:text-base">
-              <span className="text-purple-400">{typed}</span>
-              <span className="cursor-blink text-purple-400">|</span>
-            </p>
-          </div>
-
-          <h1
-            className="animate-fade-up text-6xl font-semibold leading-[0.9] tracking-[-0.07em] sm:text-8xl lg:text-[8.75rem] xl:text-[10.5rem]"
-            style={{ animationDelay: "0.2s" }}
-          >
-            Arfaa
-            <br />
-            <span className="text-shimmer">Mumtaz</span>
-          </h1>
-
-          <h2
-            className="animate-fade-up mt-10 max-w-4xl text-2xl font-medium leading-[1.28] tracking-[-0.03em] text-zinc-300 sm:text-3xl lg:text-4xl xl:text-[2.7rem]"
-            style={{ animationDelay: "0.35s" }}
-          >
-            Building secure, user-focused applications
-            <br className="hidden lg:block" /> with modern full-stack
-            development.
-          </h2>
-
-          <div
-            className="animate-fade-up mt-14 flex flex-wrap items-center gap-5"
-            style={{ animationDelay: "0.5s" }}
-          >
-            <a
-              href="#projects"
-              className="inline-flex items-center justify-center gap-2 rounded-full border border-purple-400/20 bg-purple-500 px-8 py-4 text-base font-medium text-white shadow-[0_0_30px_rgba(168,85,247,0.18)] transition-all duration-200 hover:bg-purple-400 hover:shadow-[0_0_40px_rgba(168,85,247,0.3)] active:scale-[0.98]"
-            >
-              View Projects
-              <span className="text-purple-200">↓</span>
-            </a>
-
-            <a
-              href="#about"
-              className="inline-flex items-center justify-center rounded-full border border-zinc-800 bg-zinc-950 px-8 py-4 text-base font-medium text-zinc-200 transition-all duration-200 hover:border-zinc-700 hover:bg-zinc-900 active:scale-[0.98]"
-            >
-              About Me
-            </a>
-
-            <a
-              href="/ARFAA_RESUME_03_26.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 rounded-full border border-zinc-800 bg-transparent px-8 py-4 text-base font-medium text-zinc-400 transition-all duration-200 hover:border-zinc-700 hover:text-white active:scale-[0.98]"
-            >
-              Resume
-              <span className="text-zinc-500">↗</span>
-            </a>
-          </div>
-
-          <p
-            className="animate-fade-up mt-16 text-xs uppercase tracking-[0.25em] text-zinc-600"
-            style={{ animationDelay: "0.75s" }}
-          >
-            Scroll to explore
+      <div className="relative z-10 mx-auto w-full max-w-[1900px] px-4 pb-24 pt-36 sm:px-6 lg:px-8 xl:px-10">
+        {/* Eyebrow / typewriter */}
+        <div
+          className="mb-10 flex animate-fade-up items-center gap-3"
+          style={{ animationDelay: "0.1s" }}
+        >
+          <span className="h-3 w-3 animate-pulse-glow rounded-full bg-purple-500" />
+          <p className="font-mono text-sm uppercase tracking-[0.3em] text-zinc-500 sm:text-base">
+            <span className="text-purple-400">{typed}</span>
+            <span className="cursor-blink text-purple-400">|</span>
           </p>
         </div>
+
+        {/* Name */}
+        <h1
+          className="animate-fade-up text-6xl font-semibold leading-[0.9] tracking-[-0.07em] sm:text-8xl lg:text-[8.75rem] xl:text-[10.5rem]"
+          style={{ animationDelay: "0.2s" }}
+        >
+          Arfaa
+          <br />
+          <span className="text-shimmer">Mumtaz</span>
+        </h1>
+
+        {/* Tagline */}
+        <h2
+          className="animate-fade-up mt-10 max-w-4xl text-2xl font-medium leading-[1.28] tracking-[-0.03em] text-zinc-300 sm:text-3xl lg:text-4xl xl:text-[2.7rem]"
+          style={{ animationDelay: "0.35s" }}
+        >
+          Building secure, user-focused applications
+          <br className="hidden lg:block" /> with modern full-stack development.
+        </h2>
+
+        {/* CTAs */}
+        <div
+          className="animate-fade-up mt-14 flex flex-wrap items-center gap-5"
+          style={{ animationDelay: "0.5s" }}
+        >
+          <a
+            href="#projects"
+            className="inline-flex items-center justify-center gap-2 rounded-full border border-purple-400/20 bg-purple-500 px-8 py-4 text-base font-medium text-white shadow-[0_0_30px_rgba(168,85,247,0.18)] transition-all duration-200 hover:bg-purple-400 hover:shadow-[0_0_40px_rgba(168,85,247,0.3)] active:scale-[0.98]"
+          >
+            View Projects <span className="text-purple-200">↓</span>
+          </a>
+          <a
+            href="#about"
+            className="inline-flex items-center justify-center rounded-full border border-zinc-800 bg-zinc-950 px-8 py-4 text-base font-medium text-zinc-200 transition-all duration-200 hover:border-zinc-700 hover:bg-zinc-900 active:scale-[0.98]"
+          >
+            About Me
+          </a>
+          <a
+            href="/resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center gap-2 rounded-full border border-zinc-800 bg-transparent px-8 py-4 text-base font-medium text-zinc-400 transition-all duration-200 hover:border-zinc-700 hover:text-white active:scale-[0.98]"
+          >
+            Resume <span className="text-zinc-500">↗</span>
+          </a>
+        </div>
+
+        {/* Scroll nudge */}
+        <p
+          className="animate-fade-up mt-16 text-xs uppercase tracking-[0.25em] text-zinc-600"
+          style={{ animationDelay: "0.75s" }}
+        >
+          Scroll to explore
+        </p>
       </div>
     </section>
   );
 }
 
-// ─── ROOT EXPORT ──────────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────────────────────
+// ROOT EXPORT
+// ─────────────────────────────────────────────────────────────────────────────
 
 export function AnimatedPortfolioPage() {
   return (
-    <div id="top" className="relative bg-black text-white">
-      <div className="relative h-screen">
-        <HeroSection />
-      </div>
+    <div className="relative bg-black text-white">
+      {/* Hero */}
+      <HeroSection />
 
-      <div className="relative h-[500vh]">
-        <div className="sticky top-0 h-screen overflow-hidden bg-black">
-          <div className="absolute inset-0 z-0" id="projects">
-            <SectionCard eyebrow="Projects" title="Selected Work">
-              <ProjectsSection />
-            </SectionCard>
+      {/* Divider */}
+      <div className="h-px w-full bg-gradient-to-r from-transparent via-zinc-800 to-transparent" />
+
+      {/* Content sections — normal document flow, fade+slide on scroll */}
+      <div className="space-y-0">
+        {pageSections.map((section, i) => (
+          <div key={section.id}>
+            <AnimatedSection section={section} index={i} />
+            {i < pageSections.length - 1 && (
+              <div className="mx-auto max-w-[1900px] px-4 sm:px-6 lg:px-8 xl:px-10">
+                <div className="h-px w-full bg-gradient-to-r from-transparent via-zinc-800/60 to-transparent" />
+              </div>
+            )}
           </div>
-
-          {slidingSections.map((section, index) => (
-            <SlidingSection
-              key={section.id}
-              section={section}
-              index={index}
-              total={slidingSections.length}
-            />
-          ))}
-        </div>
+        ))}
       </div>
+
+      {/* Footer */}
+      <footer className="mt-16 border-t border-zinc-900 pb-10 pt-8 text-center">
+        <p className="text-xs tracking-widest text-zinc-700">
+          © {new Date().getFullYear()} Arfaa Mumtaz · Built with Next.js
+        </p>
+      </footer>
     </div>
   );
 }
