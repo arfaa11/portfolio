@@ -1,4 +1,4 @@
-# arfaa.ca
+# My Portfolio
 
 Personal portfolio site. Built from scratch with Next.js 15, TypeScript, and Tailwind CSS.
 
