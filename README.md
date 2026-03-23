@@ -1,36 +1,86 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# My Portfolio
 
-## Getting Started
+Personal portfolio site. Built from scratch with Next.js 15, TypeScript, and Tailwind CSS.
 
-First, run the development server:
+**Live:** [arfaa.ca](https://arfaa.ca)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+---
+
+## Stack
+
+| | |
+|---|---|
+| Framework | Next.js 15 (App Router) |
+| Language | TypeScript |
+| Styling | Tailwind CSS v4 |
+| Animations | CSS keyframes + Framer Motion |
+| Fonts | Geist Sans, Geist Mono |
+| Hosting | Vercel |
+| Domain | Cloudflare |
+
+---
+
+## Structure
+
+```
+src/
+├── app/
+│   ├── favicon.ico
+│   ├── globals.css
+│   ├── layout.tsx
+│   └── page.tsx
+│
+├── components/
+│   ├── layout/
+│   │   └── header.tsx
+│   │
+│   ├── portfolio/
+│   │   ├── animated-portfolio.tsx
+│   │   └── sections/
+│   │       ├── hero-section.tsx
+│   │       ├── projects-section.tsx
+│   │       ├── skills-section.tsx
+│   │       ├── about-section.tsx
+│   │       └── contact-section.tsx
+│   │
+│   └── ui/
+│       ├── button.tsx
+│       └── section-card.tsx
+│
+└── lib/
+    ├── design-tokens.ts
+    ├── portfolio-data.ts
+    └── use-portfolio-hooks.ts
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+`animated-portfolio.tsx` is the top-level orchestrator. It imports each section component and arranges them in order. The file itself is under 150 lines. All the actual content lives in `portfolio-data.ts` so there is one place to go when anything needs updating. Shared hooks (`useReveal` and `useTypewriter`) live in `use-portfolio-hooks.ts` separately from any UI code.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Sections
 
-## Learn More
+**Hero** — Full-screen opening with a typewriter effect that cycles through different role titles. The name heading uses a fluid `clamp()` font size so it scales cleanly across screen sizes without breakpoint hacks. The surname has a shimmer gradient animation running through it.
 
-To learn more about Next.js, take a look at the following resources:
+**Projects** — Divided into two subsections: Personal Projects and University Research Projects. Each card shows the project status, date range, tech tags, and for research work, the affiliated institution. Two placeholder cards sit in the personal section ready to be filled in later.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+**Skill Stack** — Six categories laid out in a grid. Frontend, Backend, Databases, Tools and DevOps, Data and Analysis, and Security and Systems.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+**About Me** — A short bio sits alongside a quick-facts sidebar. Below that is a vertical career and education timeline that takes up most of the section. Each entry is colour-coded by type (Education, Work, Project, Achievement) and shows the date range, organisation, and a few bullet points. The coloured accent bar on each card extends on hover.
 
-## Deploy on Vercel
+**Contact** — The main email button has a CSS-only animation where two arcs rotate around it in opposite directions continuously. No JavaScript involved. On desktop, a floating card sits to the right showing current availability status.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Design Notes
+
+The scroll animation system uses the `IntersectionObserver` API rather than anything scroll-position-driven. When a section enters the viewport it gets a `.visible` class added, which triggers a CSS transition. This approach means navigation links jump directly to the right place without fighting any scroll logic.
+
+The header detects which section is currently in view and highlights the matching nav item. It also renders a thin purple progress bar across the very top of the page that fills as you scroll down.
+
+All keyframe animations are defined in `globals.css`. The site uses a consistent set of CSS variables for colours so the purple accent tone stays uniform across every component.
+
+The favicon is a bold letter A on a circular radial gradient background going from dark indigo at the centre to neon purple at the edges. Faint monospace symbols are layered in the background as texture. It was generated with Python using Pillow.
+
+---
+
+*Arfaa Mumtaz — Edmonton, AB*
