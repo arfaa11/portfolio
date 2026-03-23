@@ -49,8 +49,8 @@ export const personalProjects: Project[] = [
     id: "autofinder",
     title: "AB AutoFinder",
     description:
-      "Full-stack car listings platform serving the Alberta market. Animated multi-step funnel, real-time search & filtering, user auth, listing management, and transactional email via Resend. Deployed on Vercel with Cloudflare CDN.",
-    tags: ["Next.js", "Supabase", "Vercel", "Cloudflare", "Resend", "GitHub"],
+      "Full-stack car listings platform for the Alberta market — built and shipped solo in under 6 weeks. Features an animated multi-step lead funnel, real-time search, user auth, and transactional email via Resend. Deployed on Vercel with Cloudflare CDN.",
+    tags: [".NET MAUI", "Next.js", "Supabase", "Vercel", "Cloudflare", "Resend"],
     link: "https://abautofinder.ca",
     status: "Live",
     period: "Feb 2026 – Mar 2026",
@@ -84,8 +84,8 @@ export const researchProjects: Project[] = [
     id: "agrilo",
     title: "Agrilo – Agricultural IoT Framework",
     description:
-      "End-to-end IoT platform modernizing agronomic testing. Replaces slow lab processes with real-time, AI-powered soil and water analysis via geolocated farming insights. Built with a Security by Design approach.",
-    tags: ["C#", "IoT", "Python", "AI/ML", "SQL", "Security by Design", "Figma"],
+      "Cross-platform mobile app targeting up to $15,000/season in lab costs for Alberta farmers. Users photograph a litmus strip — the app runs RGB values through a regression model to calculate nutrient PPM, then uses Google Gemini 1.5 Flash with RAG to generate crop-specific recommendations in real time. Funded capstone supervised by Dr. Mohammed Elmorsy.",
+    tags: [".NET MAUI", "C#", "Python", "Google Gemini", "RAG", "SQLite", "GCP", "Figma"],
     link: "#",
     status: "Live",
     period: "Sept 2024 – Dec 2024",
@@ -95,8 +95,8 @@ export const researchProjects: Project[] = [
     id: "uav",
     title: "UAV-Based Agronomic Sampling System",
     description:
-      "Proof-of-concept autonomous drone platform for automated soil sampling in precision agriculture. Integrated Holybro X650 + Pixhawk 6C + Raspberry Pi 4B via custom MAVLink telemetry scripts. 3D-modeled robotic arm & sample-processing units.",
-    tags: ["Python", "C++", "MAVLink", "Raspberry Pi", "3D Modeling", "Bash"],
+      "USRI-funded autonomous drone platform that eliminates agronomist and lab costs from soil sampling — targeting up to $1,440/year in savings per farm. Integrated Pixhawk 6C + Raspberry Pi 4B via custom MAVLink scripts, 3D-modeled all custom hardware from scratch, and conducted GPS waypoint, altitude stability, and drill functionality tests. Presented at MacEwan Student Research Day.",
+    tags: ["Python", "C++", "MAVLink", "Pixhawk 6C", "Raspberry Pi 4B", "3D Modeling"],
     link: "#",
     status: "Live",
     period: "Jan 2025 – Jun 2025",
@@ -131,7 +131,7 @@ export const skillCategories: SkillCategory[] = [
   },
   {
     label: "Security & Systems",
-    skills: ["AES Encryption", "BitLocker", "Bitwarden", "OAuth 2.0", "MAVLink", "OWASP"],
+    skills: ["AES-256", "BitLocker", "Bitwarden", "OAuth 2.0", "MAVLink", "OWASP"],
   },
 ];
 
@@ -148,8 +148,8 @@ export const timelineEvents: TimelineEvent[] = [
     sublabel: "MacEwan University",
     bullets: [
       "Major: Systems & Information Security · Minor: Accounting",
-      "CGPA 3.52 / 4.00 for final 30 credits",
-      "Presented research at Student Research Day",
+      "GPA 3.39 / 4.00 for final 30 credits",
+      "Presented research at MacEwan Student Research Day",
     ],
   },
   {
@@ -157,11 +157,11 @@ export const timelineEvents: TimelineEvent[] = [
     type: "project",
     period: "Sept 2024 – Dec 2024",
     label: "Agrilo — Agricultural IoT Framework",
-    sublabel: "Funded Capstone Project · MacEwan University",
+    sublabel: "Funded Capstone · MacEwan University",
     bullets: [
-      "End-to-end IoT platform for real-time soil & water analysis",
-      "AI-powered geolocated farming insights",
-      "C# · Python · SQL · Figma · Security by Design",
+      "Cross-platform IoT app targeting up to $15,000/season in lab costs",
+      "RGB regression model + Google Gemini 1.5 Flash (RAG) for real-time crop recommendations",
+      ".NET MAUI · C# · Python · SQLite · GCP · AES-256 encryption",
     ],
   },
   {
@@ -169,11 +169,11 @@ export const timelineEvents: TimelineEvent[] = [
     type: "work",
     period: "Sept 2024 – Jan 2025",
     label: "Security Systems Analyst Intern",
-    sublabel: "Alternative Legal Services Firm",
+    sublabel: "Alternative Legal Services Firm Inc.",
     bullets: [
-      "Conducted full organizational cybersecurity audit",
-      "Deployed BitLocker + Bitwarden, enforced 2FA & privileged access",
-      "Documented incident response plan & staff security guides",
+      "Audited network, hardware, and Microsoft 365 for a legal firm handling sensitive client data",
+      "Deployed Bitwarden across all workstations, enforced 2FA, migrated email domain",
+      "Delivered incident response plan and staff security guides formally adopted by the firm",
     ],
   },
   {
@@ -183,8 +183,8 @@ export const timelineEvents: TimelineEvent[] = [
     label: "National Cyber League",
     sublabel: "Cyber Skyline · Representing MacEwan University",
     bullets: [
-      "Individual: 199th / 8,484 competitors — top 2%",
-      "Team: 72nd / 4,893 teams — top 1%",
+      "Individual: 199th out of 8,484 competitors nationwide — top 2%",
+      "Team: 72nd out of 4,893 teams — top 1%",
     ],
   },
   {
@@ -194,9 +194,9 @@ export const timelineEvents: TimelineEvent[] = [
     label: "UAV Agronomic Sampling System",
     sublabel: "USRI Funded Research · MacEwan University",
     bullets: [
-      "Lead developer — autonomous drone soil-sampling platform",
-      "Pixhawk 6C + Raspberry Pi 4B integrated via MAVLink telemetry",
-      "3D-modeled robotic arm & sample units · Python · C++ · Bash",
+      "2-person team — led hardware + software lifecycle from design to field testing",
+      "Pixhawk 6C + Raspberry Pi 4B via MAVLink · 3D-modeled all custom components",
+      "GPS waypoint, altitude stability & drill tests · presented at Student Research Day",
     ],
   },
   {
@@ -206,9 +206,9 @@ export const timelineEvents: TimelineEvent[] = [
     label: "AB AutoFinder",
     sublabel: "Personal Project · abautofinder.ca",
     bullets: [
-      "Full-stack car listings platform for the Alberta market",
+      "Built and shipped solo in under 6 weeks",
       "Next.js · Supabase · Vercel · Cloudflare · Resend",
-      "Multi-step funnel, auth, listing management & transactional email",
+      "Multi-step funnel, user auth, listing management & transactional email",
     ],
   },
 ];
@@ -256,7 +256,8 @@ export const quickFacts = [
   { label: "Degree",           value: "B.Sc. Computer Science" },
   { label: "Focus",            value: "Systems & Info Security" },
   { label: "Minor",            value: "Accounting" },
-  { label: "GPA (final 30cr)", value: "3.52 / 4.00" },
+  { label: "GPA (final 30cr)", value: "3.39 / 4.00" },
+  { label: "NCL Ranking",      value: "Top 1% — 4,893 teams" },
   { label: "Location",         value: "Edmonton, AB" },
   { label: "Status",           value: "Open to Opportunities" },
 ];
@@ -271,6 +272,33 @@ export const heroRoles = [
   "Security-Focused Builder",
   "Data Analyst",
   "CS Graduate — June 2025",
+];
+
+// ─────────────────────────────────────────────────────────────────────────────
+// HERO METRICS (right-side stats panel)
+// ─────────────────────────────────────────────────────────────────────────────
+
+export const heroMetrics = [
+  {
+    value: "$15K",
+    label: "Cost pain point targeted by Agrilo per season",
+    sub: "based on avg. Alberta farm size",
+  },
+  {
+    value: "Top 1%",
+    label: "National Cyber League 2024",
+    sub: "72nd of 4,893 teams nationwide",
+  },
+  {
+    value: "3",
+    label: "Shipped & presented projects",
+    sub: "1 live product · 2 funded research",
+  },
+  {
+    value: "6 wks",
+    label: "Solo build — AB AutoFinder",
+    sub: "concept to live deployment",
+  },
 ];
 
 // ─────────────────────────────────────────────────────────────────────────────
