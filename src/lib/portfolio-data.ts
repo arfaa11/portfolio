@@ -111,7 +111,7 @@ export const researchProjects: Project[] = [
 export const skillCategories: SkillCategory[] = [
   {
     label: "Frontend",
-    skills: ["React", "Next.js", "JavaScript", "TypeScript", "Tailwind CSS", "Framer Motion", "Figma"],
+    skills: ["React", "Next.js", "JavaScript", "TypeScript", "Tailwind CSS"],
   },
   {
     label: "Backend",
