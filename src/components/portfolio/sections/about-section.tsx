@@ -121,32 +121,24 @@ export function AboutSection() {
           </p>
           <p>
             I&apos;ve led an{" "}
-            <span className="font-medium text-white">
-              AI-powered agricultural IoT platform
-            </span>
-            , engineered an{" "}
-            <span className="font-medium text-white">
-              autonomous drone sampling system
-            </span>
-            , conducted a{" "}
-            <span className="font-medium text-white">
-              professional cybersecurity audit
-            </span>{" "}
+            <span className="font-medium text-white">AI-powered agricultural IoT platform</span>,
+            engineered an{" "}
+            <span className="font-medium text-white">autonomous drone sampling system</span>,
+            conducted a{" "}
+            <span className="font-medium text-white">professional cybersecurity audit</span>{" "}
             for a legal firm, and shipped a{" "}
-            <span className="font-medium text-white">
-              live full-stack web product
+            <span className="font-medium text-white">live full-stack web product</span>{" "}
+            — placing in the{" "}
+            <span className="font-medium text-purple-400">
+              top 1% nationally
             </span>{" "}
-            — all while finishing my degree with a competitive GPA and placing
-            in the{" "}
-            <span className="font-medium text-purple-400">top 1–2%</span>{" "}
-            nationally in the Cyber Skyline NCL competition.
+            (72nd of 4,893 teams) in the Cyber Skyline NCL competition along the way.
           </p>
           <p>
             Currently seeking{" "}
-            <span className="font-medium text-purple-400">
-              new grad opportunities
-            </span>{" "}
-            in data analysis, frontend, or full-stack development.
+            <span className="font-medium text-purple-400">new grad opportunities</span>{" "}
+            in frontend, full-stack, or data engineering. Available immediately,
+            open to remote or Edmonton-based positions.
           </p>
         </div>
 
