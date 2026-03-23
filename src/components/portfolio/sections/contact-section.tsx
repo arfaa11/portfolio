@@ -13,9 +13,7 @@ export function ContactSection() {
         {/* ── Left: copy + CTA + social links ── */}
         <div className="space-y-8">
           <p className="max-w-xl text-lg leading-8 text-zinc-400 sm:text-xl sm:leading-9 lg:text-2xl lg:leading-10">
-            Whether you have a role in mind, a project to collaborate on, or
-            just want to start a conversation — I&apos;m always open. My inbox
-            is never closed.
+            Open to new grad roles in full-stack, frontend, or data engineering. Feel free to reach out, I strive to respond in a timely manner.
           </p>
 
           {/* Revolving glow button */}

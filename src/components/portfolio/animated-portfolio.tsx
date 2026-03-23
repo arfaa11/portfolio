@@ -17,7 +17,7 @@ const pageSections = [
   {
     id:      "projects",
     eyebrow: "Projects",
-    title:   "Selected Work",
+    title:   "Featured Work",
     content: <ProjectsSection />,
   },
   {

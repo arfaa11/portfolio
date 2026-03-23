@@ -138,7 +138,7 @@ export function AboutSection() {
             Currently seeking{" "}
             <span className="font-medium text-purple-400">new grad opportunities</span>{" "}
             in frontend, full-stack, or data engineering. Available immediately,
-            open to remote or Edmonton-based positions.
+            open to AB, BC, or SK based positions.
           </p>
         </div>
 

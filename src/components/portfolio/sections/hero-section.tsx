@@ -6,6 +6,9 @@ import { heroRoles, heroMetrics } from "@/lib/portfolio-data";
 export function HeroSection() {
   const typed = useTypewriter(heroRoles);
 
+  // Drop the $15K card — it reads better in the project context
+  const displayMetrics = heroMetrics.filter((m) => m.value !== "$15K");
+
   return (
     <section
       id="top"
@@ -21,7 +24,7 @@ export function HeroSection() {
       <div className="relative z-10 mx-auto w-full max-w-[1900px] px-5 pb-20 pt-32 sm:px-8 sm:pb-24 sm:pt-36 lg:px-8 xl:px-10">
 
         {/* Two-column layout on large screens */}
-        <div className="grid grid-cols-1 gap-16 lg:grid-cols-[1fr_340px] xl:grid-cols-[1fr_380px] xl:gap-20">
+        <div className="grid grid-cols-1 gap-16 lg:grid-cols-[1fr_320px] xl:grid-cols-[1fr_360px] xl:gap-20">
 
           {/* ── Left: name + tagline + CTAs ── */}
           <div>
@@ -37,9 +40,9 @@ export function HeroSection() {
               </p>
             </div>
 
-            {/* Name */}
+            {/* Name — wider tracking for visual presence */}
             <h1
-              className="animate-fade-up text-[clamp(3.5rem,12vw,10.5rem)] font-semibold leading-[0.92] tracking-[-0.04em] sm:tracking-[-0.06em] lg:tracking-[-0.07em]"
+              className="animate-fade-up text-[clamp(3.2rem,11vw,9.5rem)] font-semibold leading-[0.92] tracking-[0.04em] sm:tracking-[0.02em] lg:tracking-[0.02em]"
               style={{ animationDelay: "0.2s" }}
             >
               Arfaa
@@ -92,30 +95,25 @@ export function HeroSection() {
             </p>
           </div>
 
-          {/* ── Right: metrics panel ── */}
-          {/* On mobile this renders below the CTAs; on lg+ it sits in the right column */}
+          {/* ── Right: metrics panel (3 cards) ── */}
           <div
-            className="animate-fade-up grid grid-cols-2 gap-3 self-center sm:gap-4 lg:grid-cols-1 lg:gap-4"
+            className="animate-fade-up grid grid-cols-2 gap-3 self-center sm:gap-4 lg:grid-cols-1 lg:gap-5"
             style={{ animationDelay: "0.6s" }}
           >
-            {heroMetrics.map((m) => (
+            {displayMetrics.map((m) => (
               <div
                 key={m.value}
                 className="group rounded-2xl border border-zinc-800/80 bg-zinc-950/60 px-5 py-5 transition-all duration-300 hover:border-purple-500/30 hover:bg-zinc-900/60 sm:px-6 sm:py-6"
               >
-                {/* Metric value */}
                 <p className="text-2xl font-semibold tracking-tight text-white sm:text-3xl lg:text-4xl">
                   <span className="text-shimmer">{m.value}</span>
                 </p>
-                {/* Label */}
                 <p className="mt-2 text-xs font-medium leading-snug text-zinc-300 sm:text-sm">
                   {m.label}
                 </p>
-                {/* Sub-label */}
                 <p className="mt-1 text-[10px] leading-relaxed text-zinc-600 sm:text-xs">
                   {m.sub}
                 </p>
-                {/* Accent bar */}
                 <div className="mt-4 h-[2px] w-6 rounded-full bg-purple-500/50 transition-all duration-300 group-hover:w-10 group-hover:bg-purple-500" />
               </div>
             ))}
