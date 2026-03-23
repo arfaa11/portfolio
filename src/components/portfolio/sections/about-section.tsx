@@ -136,7 +136,7 @@ export function AboutSection() {
           </p>
           <p>
             Currently seeking{" "}
-            <span className="font-medium text-purple-400">new grad opportunities</span>{" "}
+            <span className="font-medium text-purple-400">junior level opportunities</span>{" "}
             in frontend, full-stack, or data engineering. Available immediately,
             open to AB, BC, or SK based positions.
           </p>

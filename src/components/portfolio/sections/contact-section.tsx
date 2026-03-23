@@ -13,7 +13,7 @@ export function ContactSection() {
         {/* ── Left: copy + CTA + social links ── */}
         <div className="space-y-8">
           <p className="max-w-xl text-lg leading-8 text-zinc-400 sm:text-xl sm:leading-9 lg:text-2xl lg:leading-10">
-            Open to new grad roles in full-stack, frontend, or data engineering. Feel free to reach out, I strive to respond in a timely manner.
+            Open to junior roles in full-stack, frontend, or data engineering. Feel free to reach out, I strive to respond in a timely manner.
           </p>
 
           {/* Revolving glow button */}
@@ -55,7 +55,7 @@ export function ContactSection() {
               <span className="h-3 w-3 rounded-full bg-emerald-400 shadow-[0_0_10px_rgba(52,211,153,0.7)]" />
             </div>
             <p className="text-sm font-semibold text-white">Available</p>
-            <p className="mt-1 text-xs text-zinc-500">Open to new grad roles</p>
+            <p className="mt-1 text-xs text-zinc-500">Open to junior roles</p>
 
             {/* Role list */}
             <div className="mt-5 space-y-2 text-left">
