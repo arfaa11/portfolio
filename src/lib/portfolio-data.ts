@@ -287,7 +287,7 @@ export const heroMetrics = [
     sub: "1 live product · 2 funded research",
   },
   {
-    value: "6 wks",
+    value: "6 weeks",
     label: "Solo build — AB AutoFinder",
     sub: "concept to live deployment",
   },
