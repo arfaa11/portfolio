@@ -3,7 +3,10 @@ import { AnimatedPortfolioPage } from "@/components/portfolio/animated-portfolio
 
 export default function Home() {
   return (
-    <main id="top" className="min-h-screen bg-black text-white">
+    <main
+      id="main"
+      className="min-h-dvh bg-white text-slate-900 dark:bg-black dark:text-white"
+    >
       <Header />
       <AnimatedPortfolioPage />
     </main>

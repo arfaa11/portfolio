@@ -10,7 +10,6 @@ import { ContactSection }  from "@/components/portfolio/sections/contact-section
 
 // ─────────────────────────────────────────────────────────────────────────────
 // PAGE SECTIONS CONFIG
-// Maps each section id → eyebrow label, heading, and its content component.
 // ─────────────────────────────────────────────────────────────────────────────
 
 const pageSections = [
@@ -42,7 +41,7 @@ const pageSections = [
 
 // ─────────────────────────────────────────────────────────────────────────────
 // ANIMATED SECTION WRAPPER
-// Fade + slide-up on scroll via IntersectionObserver — no scroll hijacking.
+// Fade + slide-up on scroll via IntersectionObserver.
 // ─────────────────────────────────────────────────────────────────────────────
 
 function AnimatedSection({
@@ -57,6 +56,17 @@ function AnimatedSection({
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+
+    // Skip animation if reduced-motion is preferred
+    const prefersReduced = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+    if (prefersReduced) {
+      el.style.opacity = "1";
+      el.style.transform = "translateY(0)";
+      return;
+    }
+
     const obs = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -96,12 +106,12 @@ function AnimatedSection({
 
 export function AnimatedPortfolioPage() {
   return (
-    <div className="relative bg-black text-white">
+    <div className="relative bg-white text-slate-900 dark:bg-black dark:text-white">
       {/* Hero */}
       <HeroSection />
 
       {/* Hero → sections divider */}
-      <div className="h-px w-full bg-gradient-to-r from-transparent via-zinc-800 to-transparent" />
+      <div className="h-px w-full bg-gradient-to-r from-transparent via-slate-200 to-transparent dark:via-zinc-800" />
 
       {/* Content sections */}
       <div>
@@ -109,10 +119,10 @@ export function AnimatedPortfolioPage() {
           <div key={section.id}>
             <AnimatedSection section={section} index={i} />
 
-            {/* Inter-section divider (omit after last section) */}
+            {/* Inter-section divider */}
             {i < pageSections.length - 1 && (
               <div className="mx-auto max-w-[1900px] px-5 sm:px-8 lg:px-8 xl:px-10">
-                <div className="h-px w-full bg-gradient-to-r from-transparent via-zinc-800/50 to-transparent" />
+                <div className="h-px w-full bg-gradient-to-r from-transparent via-slate-100/80 to-transparent dark:via-zinc-800/50" />
               </div>
             )}
           </div>
@@ -120,9 +130,9 @@ export function AnimatedPortfolioPage() {
       </div>
 
       {/* Footer */}
-      <footer className="mt-12 border-t border-zinc-900 pb-8 pt-6 text-center sm:mt-16">
-        <p className="text-[10px] tracking-widest text-zinc-700 sm:text-xs">
-          © {new Date().getFullYear()} Arfaa Mumtaz · Built with Next.js
+      <footer className="mt-12 border-t border-slate-100 pb-8 pt-6 text-center dark:border-zinc-900 sm:mt-16">
+        <p className="text-[10px] tracking-widest text-slate-300 dark:text-zinc-700 sm:text-xs">
+          © {new Date().getFullYear()} Arfaa Mumtaz · Built with Next.js &amp; Tailwind CSS
         </p>
       </footer>
     </div>

@@ -4,16 +4,24 @@
 
 export type ProjectStatus = "Live" | "Planned";
 
+export type ProjectMetric = {
+  value: string;
+  label: string;
+};
+
 export type Project = {
   id: string;
   title: string;
-  description: string;
+  tagline: string;
+  problem: string;
+  built: string;
+  metrics: ProjectMetric[];
   tags: string[];
   link: string;
   status: ProjectStatus;
   period: string;
   org?: string;
-  placeholder?: boolean;
+  flagship?: boolean;
 };
 
 export type EventType = "education" | "work" | "project" | "achievement";
@@ -48,34 +56,21 @@ export const personalProjects: Project[] = [
   {
     id: "autofinder",
     title: "AB AutoFinder",
-    description:
-      "Full-stack car listings platform for the Alberta market — built and shipped solo in under 6 weeks. Features an animated multi-step lead funnel, real-time search, user auth, and transactional email via Resend. Deployed on Vercel with Cloudflare CDN.",
-    tags: ["Next.js", "PostgreSQL", "Vercel", "Cloudflare", "Resend", "GitHub"],
+    tagline: "Full-stack automotive lead-generation platform for the Alberta market",
+    problem:
+      "Alberta car buyers and sellers had no dedicated local platform — just broad national marketplaces with no seller dashboard, lead tracking, or Alberta-specific search.",
+    built:
+      "Built and shipped solo in under 6 weeks: animated multi-step seller lead funnel, real-time listing search, user auth, listing management, and transactional email via Resend. Deployed on Vercel with Cloudflare CDN.",
+    metrics: [
+      { value: "1,630+", label: "Unique visitors" },
+      { value: "78",     label: "Seller leads captured" },
+      { value: "6 wks",  label: "Concept to live deployment" },
+    ],
+    tags: ["Next.js", "PostgreSQL", "Supabase", "Cloudflare", "Resend", "Vercel"],
     link: "https://abautofinder.ca",
     status: "Live",
     period: "Feb 2026 – Mar 2026",
-  },
-  {
-    id: "placeholder-1",
-    title: "Coming Soon",
-    description:
-      "Next project in progress. Check back soon — details will be added here once the build is underway.",
-    tags: [],
-    link: "#",
-    status: "Planned",
-    period: "TBD",
-    placeholder: true,
-  },
-  {
-    id: "placeholder-2",
-    title: "Coming Soon",
-    description:
-      "Another project on the horizon. This card is reserved for an upcoming build.",
-    tags: [],
-    link: "#",
-    status: "Planned",
-    period: "TBD",
-    placeholder: true,
+    flagship: true,
   },
 ];
 
@@ -83,9 +78,16 @@ export const researchProjects: Project[] = [
   {
     id: "agrilo",
     title: "Agrilo – Agricultural IoT Framework",
-    description:
-      "Cross-platform mobile app (iOS, Android, Windows, macOS) that replaces a process costing Alberta farmers up to $15,000 per season in lab fees. Users photograph a litmus strip with their phone camera — the app runs the RGB value through a regression model to calculate nutrient PPM, then uses Google Gemini 1.5 Flash with Retrieval-Augmented Generation (RAG) to generate crop-specific, geolocated recommendations in real time. Built with AES-256 encryption and Security by Design throughout. Supervised by Dr. Mohammed Elmorsy and Dr. Samuel Mugo, MacEwan University.",
-    tags: [".NET MAUI", "C#", "Python", "Google Gemini", "RAG", "SQLite", "GCP", "Figma"],
+    tagline: "AI-powered soil analysis replacing $15K/season lab testing",
+    problem:
+      "Alberta farmers spend up to $15,000 per season on slow, expensive soil lab testing with no real-time crop recommendations — a recurring cost for a typical Alberta farm.",
+    built:
+      "Cross-platform mobile app (iOS, Android, Windows, macOS) that analyzes a litmus strip photo via phone camera. RGB values feed a regression model to calculate nutrient PPM, then Google Gemini 1.5 Flash with RAG delivers geolocated, crop-specific recommendations in real time. Built with AES-256 encryption and Security by Design throughout.",
+    metrics: [
+      { value: "$15K",     label: "Lab cost pain point per season" },
+      { value: "RAG + AI", label: "Gemini 1.5 Flash recommendations" },
+    ],
+    tags: [".NET MAUI", "C#", "Python", "Google Gemini", "RAG", "SQLite", "GCP", "AES-256"],
     link: "#",
     status: "Live",
     period: "Sept 2024 – Dec 2024",
@@ -94,9 +96,17 @@ export const researchProjects: Project[] = [
   {
     id: "uav",
     title: "UAV-Based Agronomic Sampling System",
-    description:
-      "USRI-funded autonomous drone platform designed to eliminate agronomist and laboratory costs from the soil sampling process — targeting up to $1,440/year in savings for a typical Alberta farmer. Hardware includes a Holybro X650 frame, Pixhawk 6C flight controller, and Raspberry Pi 4B companion computer integrated via custom MAVLink telemetry. Custom robotic arm and sample-processing units were 3D-modeled from scratch. Conducted multi-session GPS waypoint accuracy tests, altitude stability tests, drill functionality tests, and revolving strip housing tests to verify each subsystem independently. Presented findings at MacEwan Student Research Day. Supervised by Dr. Mohammed Elmorsy and Dr. Samuel Mugo, MacEwan University.",
-    tags: ["Python", "C++", "MAVLink", "Pixhawk 6C", "Raspberry Pi 4B", "3D Modeling", "ArduPilot"],
+    tagline: "USRI-funded autonomous drone for physical soil sampling",
+    problem:
+      "No substantial prior research existed on autonomous drones performing physical soil sampling — an identified gap in academic literature. Agronomist and lab visits cost a typical Alberta farmer up to $1,440/year.",
+    built:
+      "Proof-of-concept autonomous drone on a Holybro X650 frame with Pixhawk 6C flight controller and Raspberry Pi 4B companion computer integrated via custom MAVLink telemetry. Custom 3D-modeled and printed robotic arm for soil collection, soil processing funnel with mixing and filtering, and camera-based sample analysis box. GPS waypoint missions via ArduPilot, controlled by custom Python scripts over MAVLink. Co-authored with Allan Lam, supervised by Dr. Mohammed Elmorsy and Dr. Samuel Mugo.",
+    metrics: [
+      { value: "USRI",      label: "University research funded" },
+      { value: "Novel",     label: "Research gap addressed in literature" },
+      { value: "Presented", label: "MacEwan Student Research Day" },
+    ],
+    tags: ["Python", "ArduPilot", "MAVLink", "Pixhawk 6C", "Raspberry Pi 4B", "Autodesk Fusion", "3D Printing"],
     link: "#",
     status: "Live",
     period: "Jan 2025 – Jun 2025",
@@ -222,28 +232,28 @@ export const typeStyles: Record<EventType, TypeStyle> = {
     bar: "bg-purple-500",
     dot: "bg-purple-500 shadow-[0_0_10px_rgba(168,85,247,0.7)]",
     badge: "bg-purple-500/10 border-purple-500/20",
-    badgeText: "text-purple-300",
+    badgeText: "text-purple-600 dark:text-purple-300",
     label: "Education",
   },
   work: {
     bar: "bg-amber-500",
     dot: "bg-amber-500 shadow-[0_0_10px_rgba(251,191,36,0.7)]",
     badge: "bg-amber-500/10 border-amber-500/20",
-    badgeText: "text-amber-300",
+    badgeText: "text-amber-700 dark:text-amber-300",
     label: "Work",
   },
   project: {
     bar: "bg-blue-500",
     dot: "bg-blue-500 shadow-[0_0_10px_rgba(96,165,250,0.7)]",
     badge: "bg-blue-500/10 border-blue-500/20",
-    badgeText: "text-blue-300",
+    badgeText: "text-blue-700 dark:text-blue-300",
     label: "Project",
   },
   achievement: {
     bar: "bg-emerald-500",
     dot: "bg-emerald-500 shadow-[0_0_10px_rgba(52,211,153,0.7)]",
     badge: "bg-emerald-500/10 border-emerald-500/20",
-    badgeText: "text-emerald-300",
+    badgeText: "text-emerald-700 dark:text-emerald-300",
     label: "Achievement",
   },
 };
@@ -275,9 +285,7 @@ export const heroRoles = [
 ];
 
 // ─────────────────────────────────────────────────────────────────────────────
-// HERO METRICS (right-side stats panel)
-// Order: breadth → speed → credibility
-// The $15K card is kept last and filtered out in hero-section.tsx
+// HERO METRICS
 // ─────────────────────────────────────────────────────────────────────────────
 
 export const heroMetrics = [
@@ -296,12 +304,6 @@ export const heroMetrics = [
     label: "National Cyber League 2024",
     sub: "72nd of 4,893 teams nationwide",
   },
-  {
-    // Kept for reference in project cards — filtered out of hero panel
-    value: "$15K",
-    label: "Cost pain point targeted by Agrilo per season",
-    sub: "based on avg. Alberta farm size",
-  },
 ];
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -309,8 +311,8 @@ export const heroMetrics = [
 // ─────────────────────────────────────────────────────────────────────────────
 
 export const contactLinks = [
-  { label: "GitHub",   href: "https://github.com/" },
-  { label: "LinkedIn", href: "https://linkedin.com/in/arfaamumtaz/" },
+  { label: "GitHub",   href: "https://github.com/arfaa11" },
+  { label: "LinkedIn", href: "https://linkedin.com/in/arfaamumtaz" },
   { label: "Resume",   href: "/resume.pdf" },
 ];
 
